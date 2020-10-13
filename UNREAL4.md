@@ -3,6 +3,30 @@
 ## [NvVideoEncoder.cpp](https://github.com/EpicGames/UnrealEngine/blob/f8f4b403eb682ffc055613c7caf9d2ba5df7f319/Engine/Source/Runtime/AVEncoder/Private/Microsoft/Windows/NvVideoEncoder.cpp)
 
 
+Universal (cross-encoder type) H264 settings:
+
+```
+// Settings specific to  
+struct FH264Settings
+{
+	enum ERateControlMode
+	{
+		ConstQP,
+		VBR,
+		CBR
+	};
+
+	int QP = 20;
+	ERateControlMode RcMode = ERateControlMode::CBR;
+};
+
+
+// insider NvVideoEncoder, translates to:
+
+ERateControlMode = NV_ENC_PARAMS_RC_CONSTQP || NV_ENC_PARAMS_RC_VBR || NV_ENC_PARAMS_RC_CBR
+
+```
+
 Public functions:
 
 ```

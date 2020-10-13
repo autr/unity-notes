@@ -52,14 +52,14 @@ Takes a couple of hours, innit.
 
 Binaries on the Github repo have been updated (and now work);
 
-https://github.com/Unity-Technologies/com.unity.webrtc/releases/tag/M85
-https://github.com/Unity-Technologies/com.unity.webrtc/blob/develop/BuildScripts~/build_plugin.cmd
+* https://github.com/Unity-Technologies/com.unity.webrtc/releases/tag/M85
+* https://github.com/Unity-Technologies/com.unity.webrtc/blob/develop/BuildScripts~/build_plugin.cmd
 
 ## VS Studio 2019
 
 After cmake commands has completed, build64 folder will contain multiple VS 2019 projects. Open `webrtc.vcxproj` and right click > Project Properties to edit debug settings like so;
 
-https://github.com/Unity-Technologies/com.unity.webrtc/blob/develop/Documentation~/images/command_config_vs2017.png
+![vsstudio settings](https://github.com/Unity-Technologies/com.unity.webrtc/blob/develop/Documentation~/images/command_config_vs2017.png)
 
 Switching out UnityRenderStreamingExample for UnityRenderStreaming-glitches etc:
 

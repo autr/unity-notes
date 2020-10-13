@@ -1,0 +1,72 @@
+{
+    "NV_ENC_INITIALIZE_PARAMS": {
+        "alias": "NvEncInitializeParams",
+        "encodeWidth": "<config.width>",
+        "encodeHeight": "<config.height>",
+        "darWidth": "<config.width>",
+        "darHeight": "<config.height>",
+        "encodeGUID": "NV_ENC_CODEC_H264_GUID",
+        "presetGUID": "<config.lowLatency> ? NV_ENC_PRESET_LOW_LATENCY_HQ_GUID : NV_ENC_PRESET_HQ_GUID",
+        "frameRateNum": "<config.fps>",
+        "frameRateDen": "1",
+        "enablePTD": "1",
+        "reportSliceOffsets": "0",
+        "enableSubFrameWrite": "0",
+        "encodeConfig": "NV_ENC_CONFIG",
+        "maxEncodeWidth": "3840",
+        "maxEncodeHeight": "2160"
+    },
+    "NV_ENC_CONFIG": {
+        "alias": "NvEncConfig",
+        "profileGUID": "<config.lowLatency> ? NV_ENC_H264_PROFILE_BASELINE_GUID : NV_ENC_H264_PROFILE_MAIN_GUID",
+        "gopLength": "<config.fps>"
+    },
+    "NV_ENC_RC_PARAMS": {
+        "alias": "RcParams || rcParams",
+        "averageBitRate": "FMath::Min(<config.bitrate>, NV_ENC_RC_PARAMS.maxBitRate)",
+        "rateControlMode": "<config.RcMode> NV_ENC_PARAMS_RC_CONSTQP || NV_ENC_PARAMS_RC_VBR || NV_ENC_PARAMS_RC_CBR",
+        "enableMinQP": "true",
+        "minQP": "{ 20, 20, 20 }",
+        "maxBitRate": "<config.maxBitRate>"
+    },
+    "NV_ENC_CODEC_CONFIG": {
+        "alias": "encodeCodecConfig",
+        "NV_ENC_CONFIG_H264": {
+            "alias": "h264Config",
+            "idrPeriod": "NV_ENC_CONFIG.gopLength",
+            "sliceMode": "0",
+            "sliceModeData": "0",
+            "repeatSPSPPS": "1",
+            "level": "<config.lowLatency> ? NV_ENC_LEVEL_H264_52 : NV_ENC_LEVEL_H264_51"
+        }
+    },
+    "NV_ENC_PIC_PARAMS": {
+        "version": "NV_ENC_PIC_PARAMS_VER",
+        "pictureStruct": "NV_ENC_PIC_STRUCT_FRAME",
+        "inputBuffer": "frame.inputFrame.mappedResource",
+        "bufferFmt": "frame.inputFrame.bufferFormat",
+        "inputWidth": "NV_ENC_INITIALIZE_PARAMS.encodeWidth",
+        "inputHeight": "NV_ENC_INITIALIZE_PARAMS.encodeHeight",
+        "outputBitstream": "frame.outputFrame",
+        "inputTimeStamp": "frame.FrameIdx",
+        "completionEvent": "frame.OutputFrame.EventHandle",
+        "encodePicFlags": "<bForceKeyFrame> ? NV_ENC_PIC_FLAG_FORCEIDR"
+    },
+    "UPDATE": {
+        "NV_ENC_INITIALIZE_PARAMS": {
+            "encodeWidth": "<config.width>",
+            "encodeHeight": "<config.height>",
+            "darWidth": "<config.width>",
+            "darHeight": "<config.height>"
+        },
+        "NV_ENC_RC_PARAMS": {
+            "averageBitRate": "<config.bitRate>",
+            "rateControlMode": "<config.rcMode>",
+            "minQP": {
+                "qpIntra": "<config.QP>",
+                "qpInterP": "<config.QP>",
+                "qpInterB": "<config.QP>"
+            }
+        }
+    }
+}
