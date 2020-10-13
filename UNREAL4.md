@@ -1,6 +1,6 @@
 # Unreal4
 
-## NvVideoEncoder.cpp
+## [NvVideoEncoder.cpp](https://github.com/EpicGames/UnrealEngine/blob/f8f4b403eb682ffc055613c7caf9d2ba5df7f319/Engine/Source/Runtime/AVEncoder/Private/Microsoft/Windows/NvVideoEncoder.cpp)
 
 
 Public functions:
@@ -20,8 +20,7 @@ Public functions:
 	bool SetParameter(const FString& Parameter, const FString& Value) override;
 
 ```
-
-Exposes these base H264 profiles:
+H264 profiles that are exposed to the interface:
 
 ```
 		case NV_ENC_PARAMS_RC_CONSTQP:
@@ -38,7 +37,7 @@ Exposes these base H264 profiles:
 			return TEXT("VBR_HQ");
 ```
 
-And various frame types:
+Various frame types, where only **NV_ENC_PIC_TYPE_IDR** is used for keyframes in encoder (FNvVideoEncoder::ProcessFrame):
 
 ```
 		case NV_ENC_PIC_TYPE_P:
@@ -57,19 +56,19 @@ And various frame types:
 			return TEXT("NV_ENC_PIC_TYPE_INTRA_REFRESH");
 ```
 
-Of these, only **NV_ENC_PIC_TYPE_IDR** is referenced again in encoder (FNvVideoEncoder::ProcessFrame).
 
+### Initialize
 
-### ::Initialize
+Brief summary:
 
+* Switches between **NV_ENC_PRESET_LOW_LATENCY_HQ_GUID** and **NV_ENC_PRESET_HQ_GUID** presets
+* **NV_ENC_PARAMS_RC_MODE** is set externally via interface
+* Slice mode and slice mode data set to **0** due to "immediate visual artefacts"
+* Mandatory SPS and PPS is set for each frame (**repeatSPSPPS**)
+* GOP length is set to a single frame (**FPS**)
+* Jazzy unknown things are disabled (reportSliceOffsets=0 enableSubFrameWrite=0)?
 
-* Switches between NV_ENC_PRESET_LOW_LATENCY_HQ_GUID and NV_ENC_PRESET_HQ_GUID presets
-* Slice mode and slice mode data set to 0 due to "immediate visual artefacts"
-* Mandatory SPS and PPS is set for each frame
-* GOP length is set to a single frame (FPS)
-* Jazzy things are disabled (reportSliceOffsets=0 enableSubFrameWrite=0)?
-
-From the NVIDIA API docs:
+Some context from the NVIDIA API docs:
 
 ```
  Application submitting buffers in Encode order must specify
@@ -83,6 +82,10 @@ From the NVIDIA API docs:
  NV_ENC_CONFIG_H264 :: idrPeriod
  NV_ENC_INITIALIZE_PARAMS :: enablePTD to 1
 ```
+
+
+Summary of function (extraneous code removed - only NVIDIA settings):
+
 
 ```
 
@@ -180,18 +183,17 @@ bool FNvVideoEncoder::Initialize(const FVideoEncoderConfig& InConfig)
 
 		// maybe doesn't have an effect, high level is chosen because we aim at high bitrate
 		NvEncConfig.encodeCodecConfig.h264Config.level = Config.Preset==FVideoEncoderConfig::EPreset::LowLatency ? NV_ENC_LEVEL_H264_52 : NV_ENC_LEVEL_H264_51;
-
 	}
-
 }
 
 ```
 
-### ::ProcessFrame
 
-Flag **bForceKeyFrame** comes from base class encoder (see )
+### ProcessFrame
 
-Packet object structure:
+TODO: look into how adaptive bitrate / FPS is handled, and when bForceKeyframe is triggered.
+
+Summary of packet object :
 
 ```
 {
@@ -210,7 +212,7 @@ Packet object structure:
 }
 ```
 
-
+Summary of ProcessFrame function (extraneous code removed):
 
 ```
 void FNvVideoEncoder::ProcessFrame(FFrame& Frame)

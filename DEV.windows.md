@@ -1,6 +1,6 @@
 # Setting up development environment for com.unity.webrtc
 
-Follow instructions here - but don't use WSL, Windows Terminal or Power Shell, which will cause strange things to happen - use only Command Prompt!
+Follow instructions here - but don't use WSL, Windows Terminal or Power Shell, which will cause strange things to happen - use only Command Prompt;
 
 https://github.com/Unity-Technologies/com.unity.webrtc/blob/develop/Plugin~/README.md
 
@@ -11,6 +11,10 @@ System Properties > Advanced > Environment Variables > System Variables > PATH
 ```
 
 When installing Google Test, `cd %SOLUTION_DIR%` means `cd com.unity.webrtc/Plugin~`. Also replace VS Studio v15 / 2016 with v16 / 2019.
+
+NB. Guide means to reference this script when using `%SOLUTION_DIR%`;
+
+https://github.com/Unity-Technologies/com.unity.webrtc/blob/develop/BuildScripts~/build_plugin.cmd
 
 ## libwebrtc
 
@@ -38,11 +42,18 @@ Plugin~
 
 Alas, this lib will be missing the patches from BuildScripts~/patches, so:
 
-**Build libwerbrtc (the only way)**
+**Build libwerbrtc**
 
 To build from scratch, run **BuildScripts~/build_libwebrtc_win.cmd**. If you encourter errors / missing dependencies, install them, then blitz any build generated or downloaded files before you try again: especially **.gclient**
 
 Takes a couple of hours, innit.
+
+**Pre-build (DO THIS)**
+
+Binaries on the Github repo have been updated (and now work);
+
+https://github.com/Unity-Technologies/com.unity.webrtc/releases/tag/M85
+https://github.com/Unity-Technologies/com.unity.webrtc/blob/develop/BuildScripts~/build_plugin.cmd
 
 ## VS Studio 2019
 
