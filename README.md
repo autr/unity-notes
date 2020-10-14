@@ -1,10 +1,6 @@
 # UnityRenderStreaming
 
-Repository for research into fixing a Unity Render Streaming [bug that causes "data-moshing"](https://github.com/Unity-Technologies/com.unity.webrtc/issues/205) when there is packet loss - ie. missing or malformed keyframes (idr-frame, PPS, SPS) causing subsequent predictive-frames to be [glitchy](https://www.goodreads.com/quotes/649039-whatever-you-now-find-weird-ugly-uncomfortable-and-nasty-about).
-
-Some comparison is made between [Unreal4 PixelStreaming](https://github.com/EpicGames/UnrealEngine/tree/f8f4b403eb682ffc055613c7caf9d2ba5df7f319/Engine/Plugins/Media/PixelStreaming/Source/PixelStreaming)* which also uses the NVIDIA SDK, but without glitches. [NVIDIA API settings](https://github.com/EpicGames/UnrealEngine/blob/f8f4b403eb682ffc055613c7caf9d2ba5df7f319/Engine/Source/Runtime/AVEncoder/Private/Microsoft/Windows/NvVideoEncoder.cpp)* however are relatively identical, whereas adaptive bitrate / FPS logic is custom for each implementation.
-
-*requires signup to Unreal developers github
+Repository for research into ["data-moshing" bug](https://github.com/Unity-Technologies/com.unity.webrtc/issues/205) in Unity Render Streaming. Visibly from missing or malformed keyframes or headers (IDR, PPS, SPS) causing predictive-frames to be [glitchy](https://www.goodreads.com/quotes/649039-whatever-you-now-find-weird-ugly-uncomfortable-and-nasty-about). A comparison is made with [Unreal4 PixelStreaming](https://github.com/EpicGames/UnrealEngine/tree/f8f4b403eb682ffc055613c7caf9d2ba5df7f319/Engine/Plugins/Media/PixelStreaming/Source/PixelStreaming) (requires [signup](https://www.unrealengine.com/en-US/ue4-on-github) to Unreal github) which also uses NVIDIA SDK, but does not have this bug.
 
 ## Notes
 
