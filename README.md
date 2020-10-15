@@ -35,7 +35,7 @@ Error Resilience Mechanisms:
 * FIR = [full intra request](https://www.callstats.io/blog/2015/10/30/error-resilience-mechanisms-webrtc-video)
 * PLI = picture loss indication (see `webrtc::RTCRtpStreamStats.pliCount`, [see also](https://stackoverflow.com/questions/64285619/webrtc-how-to-force-pli-packet-sent-from-javascript-web-app-client))
 * SLI = slice loss indication (see `webrtc::RTCRtpStreamStats.sliCount`)
-* LTR = ([mysterious NVIDIA setting](https://forums.developer.nvidia.com/t/hevc-ltr-does-it-work-or-not/48623))
+* LTR = long term reference pictures ([mysterious undocumented NVIDIA setting](https://forums.developer.nvidia.com/t/hevc-ltr-does-it-work-or-not/48623))
 
 ## NVIDIA API
 
