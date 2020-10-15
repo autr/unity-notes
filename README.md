@@ -39,6 +39,44 @@ Error Resilience Mechanisms:
 
 ## NVIDIA API
 
+Official recommendations:
+
+```
+Low-latency use cases like game-streaming, video conferencing etc.
+
+Ultra-low latency or low latency Tuning Info
+Rate control mode = CBR
+Multi Pass – Quarter/Full (evaluate and decide)
+Very low VBV buffer size (e.g. single frame = bitrate/framerate)
+No B Frames
+Infinite GOP length
+Adaptive quantization (AQ) enabled**
+Long term reference pictures***
+Intra refresh***
+Non-reference P frames***
+Force IDR***
+
+*: Recommended for low motion games and natural video.
+
+**: Recommended on second generation Maxwell GPUs and above.
+
+***: These features are useful for error recovery during transmission across noisy mediums.
+```
+
+Elsewhere:
+
+```
+High quality Tuning Info
+‣ Rate control mode = CBR
+‣ Medium VBV buffer size (1 second)
+‣ B Frames*
+‣ Look-ahead
+```
+
+
+* https://docs.nvidia.com/video-technologies/video-codec-sdk/pdf/NVENC_VideoEncoder_API_ProgGuide.pdf
+* https://on-demand.gputechconf.com/gtc/2014/presentations/S4654-detailed-overview-nvenc-encoder-api.pdf
+* https://docs.nvidia.com/video-technologies/video-codec-sdk
 * http://developer.download.nvidia.com/compute/nvenc/v4.0/NVENC_AppNote.pdf
 * https://docs.nvidia.com/video-technologies/video-codec-sdk/nvenc-video-encoder-api-prog-guide
 * https://github.com/rigaya/NVEnc
