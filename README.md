@@ -10,10 +10,15 @@ Repository for research into ["data-moshing" bug](https://github.com/Unity-Techn
 
 ## Glossary
 
+Codecs:
+
 * H264 = AVC / MPEG4 Pt.10 (advanced video coding)
 * HEVC = H265 / MPEG-H Pt.2 (high efficiency video coding)
 * VP8 = alt codec, H264 equivalency (google)
 * VP9 = alt codec, H265 equivalency (google)
+
+Properties:
+
 * GOP = length of GOP (group of pictures)
 * RCM = rate control mode (VBR, CBR etc)
 * QP = quantization parameter (compression amount)
@@ -24,9 +29,23 @@ Repository for research into ["data-moshing" bug](https://github.com/Unity-Techn
 * P-FRAME = predictive frame 
 * B-FRAME = bi-directional predictive frame
 
+Error Resilience Mechanisms:
+
+* NACK = [negative acknowledgement](https://www.callstats.io/blog/2015/10/30/error-resilience-mechanisms-webrtc-video)
+* FIR = [full intra request](https://www.callstats.io/blog/2015/10/30/error-resilience-mechanisms-webrtc-video)
+* PLI = picture loss indication (see `webrtc::RTCRtpStreamStats.pliCount`, [see also](https://stackoverflow.com/questions/64285619/webrtc-how-to-force-pli-packet-sent-from-javascript-web-app-client))
+* SLI = slice loss indication (see `webrtc::RTCRtpStreamStats.sliCount`)
+* LTR = ([mysterious NVIDIA setting](https://forums.developer.nvidia.com/t/hevc-ltr-does-it-work-or-not/48623))
+
+## NVIDIA API
+
+* http://developer.download.nvidia.com/compute/nvenc/v4.0/NVENC_AppNote.pdf
+* https://docs.nvidia.com/video-technologies/video-codec-sdk/nvenc-video-encoder-api-prog-guide
+* https://github.com/rigaya/NVEnc
 
 ## Other Resources
 
+* [Handling Packet Loss in WebRTC](https://static.googleusercontent.com/media/research.google.com/en//pubs/archive/41611.pdf)
 * https://webrtcforthecurious.com/
 * https://www.html5rocks.com/en/tutorials/webrtc
 * https://blog.mozilla.org/webrtc/the-evolution-of-webrtc/
