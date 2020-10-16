@@ -86,8 +86,8 @@ High quality Tuning Info
 
 Unreal implementation references:
 
-* [NvEncoder.cpp](unreal-NvEncoder.cpp) (see lines: [407](NvEncoder.cpp#L407) / [742](NvEncoder.cpp#L854) / [742](NvEncoder.cpp#L854))
-* [NvEncoder.cpp](unreal-VideoEncoder.cpp) (see lines: [193](VideoEncoder.cpp#L193) / [269](VideoEncoder.cpp#L269))
+* [NvEncoder.cpp](unreal-NvEncoder.cpp) (see lines: [407](unreal-NvEncoder.cpp#L407) / [742](unreal-NvEncoder.cpp#L854) / [742](unreal-NvEncoder.cpp#L854))
+* [VideoEncoder.cpp](unreal-VideoEncoder.cpp) (see lines: [193](unreal-VideoEncoder.cpp#L193) / [269](unreal-VideoEncoder.cpp#L269))
 
 ## Other Resources
 
