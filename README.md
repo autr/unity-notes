@@ -2,6 +2,11 @@
 
 Repository for research into ["data-moshing" bug](https://github.com/Unity-Technologies/com.unity.webrtc/issues/205) in Unity Render Streaming. Visibly from missing or malformed keyframes or headers (IDR, PPS, SPS) causing predictive-frames to be [glitchy](https://www.goodreads.com/quotes/649039-whatever-you-now-find-weird-ugly-uncomfortable-and-nasty-about). A comparison is made with [Unreal4 PixelStreaming](https://github.com/EpicGames/UnrealEngine/tree/f8f4b403eb682ffc055613c7caf9d2ba5df7f319/Engine/Plugins/Media/PixelStreaming/Source/PixelStreaming) (requires [signup](https://www.unrealengine.com/en-US/ue4-on-github) to Unreal github) which also uses NVIDIA SDK, but does not have this bug.
 
+## Example
+
+* [autr/com.unity.webrtc](https://github.com/autr/com.unity.webrtc) (fork with NVIDIA settings exposed)
+* [autr/UnityRenderStreaming-glitches](https://github.com/autr/UnityRenderStreaming-glitches) (test project implementing plugin fork)
+
 ## Notes
 
 * [Setting up Unity and Unreal4 development environment on PopOS (Linux)](DEV.linux.md)
