@@ -28,6 +28,7 @@ Properties:
 * IDR-FRAME = [instantaneous decoder refresh frame](https://streaminglearningcenter.com/articles/everything-you-ever-wanted-to-know-about-idr-frames-but-were-afraid-to-ask.html)
 * P-FRAME = predictive frame 
 * B-FRAME = bi-directional predictive frame
+* NALU = network abstraction layer units
 
 Error Resilience Mechanisms:
 
@@ -80,6 +81,13 @@ High quality Tuning Info
 * http://developer.download.nvidia.com/compute/nvenc/v4.0/NVENC_AppNote.pdf
 * https://docs.nvidia.com/video-technologies/video-codec-sdk/nvenc-video-encoder-api-prog-guide
 * https://github.com/rigaya/NVEnc
+
+## Unreal 
+
+Unreal implementation references:
+
+* [NvEncoder.cpp](unreal-NvEncoder.cpp) (see lines: [407](NvEncoder.cpp#L407) / [742](NvEncoder.cpp#L854) / [742](NvEncoder.cpp#L854))
+* [NvEncoder.cpp](unreal-VideoEncoder.cpp) (see lines: [193](VideoEncoder.cpp#L193) / [269](VideoEncoder.cpp#L269))
 
 ## Other Resources
 
