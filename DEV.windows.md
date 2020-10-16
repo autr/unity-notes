@@ -20,37 +20,15 @@ https://github.com/Unity-Technologies/com.unity.webrtc/blob/develop/BuildScripts
 
 The pre-built libwebrtc are broken (missing binaries), so you will either need to build libwebrtc from scratch or download a pre-built binary from elsewhere. 
 
-**Pre-built (don't do this)**
-
-I'm (was) downloading the binary here:
-
-https://github.com/crow-misia/libwebrtc-bin
-
-You must then restructure the folder exactly like so to play nice with CMAKE settings:
-
-```
-Plugin~
-    webrtc
-        include
-            ... # etc
-        lib
-            x64
-                webrtcd.lib # renamed Debug lib
-                webrtc.lib # renamed Release lib
-
-```
-
-Alas, this lib will be missing the patches from BuildScripts~/patches, so:
-
-**Build libwerbrtc**
+**Building libwerbrtc**
 
 To build from scratch, run **BuildScripts~/build_libwebrtc_win.cmd**. If you encourter errors / missing dependencies, install them, then blitz any build generated or downloaded files before you try again: especially **.gclient**
 
 Takes a couple of hours, innit.
 
-**Pre-build (DO THIS)**
+**Pre-build**
 
-Binaries on the Github repo have been updated (and now work);
+Binaries on the Github repo have been updated (but work only with release branches);
 
 * https://github.com/Unity-Technologies/com.unity.webrtc/releases/tag/M85
 * https://github.com/Unity-Technologies/com.unity.webrtc/blob/develop/BuildScripts~/build_plugin.cmd
@@ -92,14 +70,51 @@ git reset --hard HEAD && git clean -d -f
 
 Reset a file: `git checkout @ -- myfile.ext`
 
-## [ignore] Recompiling 
+## Recompiling 
 
+Recommended to use `release/2.3.1` (or `2.3.1-nvidia` from [fork](https://github.com/autr/com.unity.webrtc)) and avoid `develop` which has linker errors on downloaded `libwebrtc`, and throws err on locally compiled `libwebrtc`. Caveat is you can only run Release build and print logs will be disable (so use debugger plentifully).
 
 Run the build script from the repository root:
 
 ```
 cd com.unity.webrtc
 "BuildScripts~\build_plugin.cmd"
+```
+
+If you get a gtest error, redo compile instructions:
+
+```
+cd "com.unity\webrtc\Plugin~\googletest"
+git checkout 2fe3bd994b3189899d93f1d5a881e725e046fdc2
+cmake . -G "Visual Studio 15 2017" -A x64 -B "build64"
+cmake --build build64 --config Release
+mkdir include\gtest
+xcopy /e googletest\include\gtest include\gtest
+mkdir include\gmock
+xcopy /e googlemock\include\gmock include\gmock
+mkdir lib
+xcopy /e build64\googlemock\Release lib
+xcopy /e build64\googlemock\gtest\Release lib
+```
+
+Attempts to get Debug solution working (ignore):
+
+```
+
+# Debug
+cd googletest
+rmdir /S /q build64
+cmake . -G "Visual Studio 15 2017" -A x64 -B "build64" -DCMAKE_CXX_FLAGS_DEBUG="/MTd /Zi -D_ITERATOR_DEBUG_LEVEL=0"
+mkdir lib
+cmake --build build64 --config Debug
+xcopy /e build64\googlemock\Debug lib
+xcopy /e build64\googlemock\gtest\Debug lib
+cmake --build build64 --config Release
+xcopy /e build64\googlemock\Release lib
+xcopy /e build64\googlemock\gtest\Release lib
+
+# reference: https://github.com/Unity-Technologies/com.unity.webrtc/pull/200/commits/3932ae1f8b5951d2c00a4756d0ed627ee19f01d4
+
 ```
 
 Build project files:
@@ -121,55 +136,6 @@ cmake --build build64 --config Debug
 ```
 
 
-If you get a gtest error, redo compile instructions:
-
-```
-cd "com.unity\webrtc\Plugin~\googletest"
-git checkout 2fe3bd994b3189899d93f1d5a881e725e046fdc2
-cmake . -G "Visual Studio 15 2017" -A x64 -B "build64"
-cmake --build build64 --config Release
-mkdir include\gtest
-xcopy /e googletest\include\gtest include\gtest
-mkdir include\gmock
-xcopy /e googlemock\include\gmock include\gmock
-mkdir lib
-xcopy /e build64\googlemock\Release lib
-xcopy /e build64\googlemock\gtest\Release lib
-```
-
-
-Attempts to get Debug solution working:
-
-```
-
-# Debug
-cd googletest
-rmdir /S /q build64
-cmake . -G "Visual Studio 15 2017" -A x64 -B "build64" -DCMAKE_CXX_FLAGS_DEBUG="/MTd /Zi -D_ITERATOR_DEBUG_LEVEL=0"
-mkdir lib
-cmake --build build64 --config Debug
-xcopy /e build64\googlemock\Debug lib
-xcopy /e build64\googlemock\gtest\Debug lib
-cmake --build build64 --config Release
-xcopy /e build64\googlemock\Release lib
-xcopy /e build64\googlemock\gtest\Release lib
-
-# reference: https://github.com/Unity-Technologies/com.unity.webrtc/pull/200/commits/3932ae1f8b5951d2c00a4756d0ed627ee19f01d4
-
-```
-
-## Update
-
-Working with current `develop` branch is easiest for getting Debug builds to work (currently using: `4192925d2d3241c66db620ddefc39f2cff1e4f6c`).
-
-```
-
-cd com.unity.webrtc
-"BuildScripts~\build_plugin.cmd"
-cd Plugin~
-cmake . -G "Visual Studio 16 2019" -A x64 -B "build64"
-```
-
 Open in VStudio 19 and set Project Properties:
 
 ```
@@ -179,5 +145,3 @@ C:\Program Files\Unity\Hub\Editor\2019.4.9f1\Editor\Unity.exe
 # Command Arguments:
 -projectPath C:\Users\gilbe\Code\UnityRenderStreaming-glitches
 ```
-
-Voila.
